@@ -10,7 +10,7 @@ namespace YoutubeBot._5sim.Objects
         public int id;
 
         /// <summary>The phone-number</summary>
-        public string number;
+        public string phone;
         
         /// <summary>The recieved sms (Activation only has 1 sms)</summary>
         public List<Sms> sms;
