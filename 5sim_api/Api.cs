@@ -23,7 +23,13 @@ namespace YoutubeBot._5sim
             this.token = token;
         }
 
-
+        /// <summary>
+        /// Get a given service
+        /// </summary>
+        /// <param name="service_name">Name of service (e.g. 'google')</param>
+        /// <param name="country">Country of service (Default is 'any')</param>
+        /// <param name="carrier">Carrier of service (Default is 'any')</param>
+        /// <returns></returns>
         public Service getService(string service_name, string country = "any", string carrier = "any")
         {
             String uri = $"guest/products/{country}/{carrier}";
@@ -120,94 +126,26 @@ namespace YoutubeBot._5sim
                 throw new InvalidOperationException($"Invalid response: {response.StatusCode}");
         }
 
-
         public Number checkNumber(int id)
         {
-            String uri = $"user/check/{id}";
-            RestRequest request = new RestRequest(uri, Method.GET);
-
-            request.AddHeader("Authorization", $"Bearer {token}");
-
-            IRestResponse response = client.Execute(request);
-
-            // Client-error handling
-            Exception ex = response.ErrorException;
-            if (ex != null) throw ex;
-
-            // Check for expected errors and throw the corresponding exception of necessary
-            checkAndThrowException(response.StatusCode, response.Content);
-
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                JObject activationNumber_json = (JObject)JsonConvert.DeserializeObject(response.Content);
-
-                Number activationNumber = activationNumber_json.ToObject<Number>();
-                activationNumber.carrier = (string)activationNumber_json["operator"];
-                return activationNumber;
-            }
-            else
-                throw new InvalidOperationException($"Invalid response: {response.StatusCode}");
+            return actionNumber("check", id);
         }
-
         public Number finishNumber(int id)
         {
-            String uri = $"user/finish/{id}";
-            RestRequest request = new RestRequest(uri, Method.GET);
-
-            request.AddHeader("Authorization", $"Bearer {token}");
-
-            IRestResponse response = client.Execute(request);
-
-            // Client-error handling
-            Exception ex = response.ErrorException;
-            if (ex != null) throw ex;
-
-            // Check for expected errors and throw the corresponding exception of necessary
-            checkAndThrowException(response.StatusCode, response.Content);
-
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                JObject activationNumber_json = (JObject)JsonConvert.DeserializeObject(response.Content);
-
-                Number activationNumber = activationNumber_json.ToObject<Number>();
-                activationNumber.carrier = (string)activationNumber_json["operator"];
-                return activationNumber;
-            }
-            else
-                throw new InvalidOperationException($"Invalid response: {response.StatusCode}");
+            return actionNumber("finish", id);
         }
-
         public Number cancelNumber(int id)
         {
-            String uri = $"user/cancel/{id}";
-            RestRequest request = new RestRequest(uri, Method.GET);
-
-            request.AddHeader("Authorization", $"Bearer {token}");
-
-            IRestResponse response = client.Execute(request);
-
-            // Client-error handling
-            Exception ex = response.ErrorException;
-            if (ex != null) throw ex;
-
-            // Check for expected errors and throw the corresponding exception of necessary
-            checkAndThrowException(response.StatusCode, response.Content);
-
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                JObject activationNumber_json = (JObject)JsonConvert.DeserializeObject(response.Content);
-
-                Number activationNumber = activationNumber_json.ToObject<Number>();
-                activationNumber.carrier = (string)activationNumber_json["operator"];
-                return activationNumber;
-            }
-            else
-                throw new InvalidOperationException($"Invalid response: {response.StatusCode}");
+            return actionNumber("cancel", id);
         }
-
         public Number banNumber(int id)
         {
-            String uri = $"user/ban/{id}";
+            return actionNumber("ban", id);
+        }
+
+        private Number actionNumber(string type, int id)
+        {
+            String uri = $"user/{type}/{id}";
             RestRequest request = new RestRequest(uri, Method.GET);
 
             request.AddHeader("Authorization", $"Bearer {token}");
@@ -232,8 +170,6 @@ namespace YoutubeBot._5sim
             else
                 throw new InvalidOperationException($"Invalid response: {response.StatusCode}");
         }
-
-
 
 
         // ----------
