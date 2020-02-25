@@ -253,6 +253,10 @@ namespace YoutubeBot._5sim
                 case HttpStatusCode.BadRequest:
                     switch (content)
                     {
+                        // Api had responded with 400 instead of 404
+                        case "order not found":
+                            throw new OrderNotFoundException();
+
                         case "not enough product qty":
                             throw new NotEnoughProductQuantityException();
 
