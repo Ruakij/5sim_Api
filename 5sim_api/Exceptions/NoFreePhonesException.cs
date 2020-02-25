@@ -5,7 +5,7 @@ using System.Text;
 namespace YoutubeBot._5sim.Exceptions
 {
     [Serializable]
-    class NoFreePhonesException : Exception
+    public class NoFreePhonesException : Exception
     {
         public NoFreePhonesException()
         {

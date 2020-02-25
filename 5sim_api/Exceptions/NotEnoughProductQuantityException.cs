@@ -5,7 +5,7 @@ using System.Text;
 namespace YoutubeBot._5sim.Exceptions
 {
     [Serializable]
-    class NotEnoughProductQuantityException : Exception
+    public class NotEnoughProductQuantityException : Exception
     {
         public NotEnoughProductQuantityException()
         {

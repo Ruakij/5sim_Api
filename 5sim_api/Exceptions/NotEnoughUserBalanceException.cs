@@ -5,7 +5,7 @@ using System.Text;
 namespace YoutubeBot._5sim.Exceptions
 {
     [Serializable]
-    class NotEnoughUserBalanceException : Exception
+    public class NotEnoughUserBalanceException : Exception
     {
         public NotEnoughUserBalanceException()
         {

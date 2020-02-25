@@ -5,7 +5,7 @@ using System.Text;
 namespace YoutubeBot._5sim.Exceptions
 {
     [Serializable]
-    class NotEnoughRatingException : Exception
+    public class NotEnoughRatingException : Exception
     {
         public NotEnoughRatingException()
         {

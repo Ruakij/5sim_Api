@@ -5,7 +5,7 @@ using System.Text;
 namespace YoutubeBot._5sim.Exceptions
 {
     [Serializable]
-    class OrderExpiredException : Exception
+    public class OrderExpiredException : Exception
     {
         public OrderExpiredException()
         {
